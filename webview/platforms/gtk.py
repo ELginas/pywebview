@@ -431,17 +431,23 @@ class BrowserView:
         dialog.destroy()
 
         return file_name
+    
+    def _add_file_filter(self, s, dialog):
+        description, extensions = parse_file_type(s)
+
+        f = gtk.FileFilter()
+        f.set_name(description)
+        for e in extensions.split(';'):
+            f.add_pattern(e)
+
+        dialog.add_filter(f)
 
     def _add_file_filters(self, dialog, file_types):
-        for s in file_types:
-            description, extensions = parse_file_type(s)
-
-            f = gtk.FileFilter()
-            f.set_name(description)
-            for e in extensions.split(';'):
-                f.add_pattern(e)
-
-            dialog.add_filter(f)
+        if isinstance(file_types, tuple):
+            for s in file_types:
+                self._add_file_filter(s, dialog)
+        else:
+            self._add_file_filter(file_types, dialog)  
 
     def get_cookies(self):
         def _get_cookies():

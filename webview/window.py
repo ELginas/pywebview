@@ -451,8 +451,11 @@ class Window:
             filetypes = ('Description (*.extension[;*.extension[;...]])', ...)
         :return: A tuple of selected files, None if cancelled.
         """
-        for f in file_types:
-            parse_file_type(f)
+        if isinstance(file_types, tuple):
+            for f in file_types:
+                parse_file_type(f)
+        else:
+            parse_file_type(file_types)
 
         if not os.path.exists(directory):
             directory = ''
