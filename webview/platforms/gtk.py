@@ -555,6 +555,8 @@ def create_window(window):
 
     def create():
         browser = BrowserView(window)
+        if not window.hidden:
+            browser.show()
 
     def create_master_callback(app):
         create()
