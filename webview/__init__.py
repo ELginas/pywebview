@@ -254,6 +254,9 @@ def create_window(
     :return: window object.
     """
 
+    if html:
+        raise Exception('Please call window.load_html(html) on load instead.')
+
     valid_color = r'^#(?:[0-9a-fA-F]{3}){1,2}$'
     if not re.match(valid_color, background_color):
         raise ValueError('{0} is not a valid hex triplet color'.format(background_color))
