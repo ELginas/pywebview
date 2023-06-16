@@ -318,12 +318,7 @@ class BrowserView:
 
     def show(self):
         self.window.show_all()
-
-        if gtk.main_level() == 0:
-            if self.pywebview_window.hidden:
-                self.window.hide()
-        else:
-            glib.idle_add(self.window.show_all)
+        glib.idle_add(self.window.show_all)
 
     def hide(self):
         glib.idle_add(self.window.hide)
@@ -554,7 +549,6 @@ def create_window(window):
 
     def create():
         browser = BrowserView(window)
-        browser.show()
 
     def create_master_callback(app):
         create()
